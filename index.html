@@ -42,6 +42,11 @@ nav a:hover { color: var(--text); }
 .hero p.lead { font-size: 20px; color: var(--muted); max-width: 520px; margin: 0 0 28px; }
 .button { display: inline-block; padding: 13px 22px; border-radius: 999px; background: var(--accent); color: #0b1020; font-weight: 700; text-decoration: none; }
 .button.soon { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.button.small { padding: 8px 16px; font-size: 14.5px; margin-left: 10px; vertical-align: middle; }
+.testbox { background: linear-gradient(135deg, rgba(138,180,248,.14), rgba(201,181,255,.10)); border: 1px solid var(--line); border-radius: 22px; padding: 34px 36px; }
+.steps { margin: 0 0 16px; padding-left: 22px; }
+.steps li { margin: 0 0 14px; }
+.testbox .note { color: var(--muted); font-size: 14.5px; margin: 0; }
 .hero .meta { margin-top: 18px; color: var(--muted); font-size: 14px; }
 
 .watches { position: relative; height: 470px; }
@@ -120,13 +125,32 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     <h1>Your watch,<br><span>along the rim.</span></h1>
     <p class="lead">Arcline puts your complications around the edge of the watch in clean curved text, so the time
     gets the middle. With a heart that beats with yours, weather that looks ahead, and 35 color themes.</p>
-    <span class="button soon">Coming soon to Google Play</span>
+    <a class="button" href="#test">Help test it</a> <span class="button soon">Coming soon to Google Play</span>
     <div class="meta">For Wear OS 6 and later · No data collected</div>
   </div>
   <div class="watches" aria-hidden="true">
     <div class="watch r"><img src="img/2_sunset.png" alt=""></div>
     <div class="watch l"><img src="img/4_neon_12h.png" alt=""></div>
     <div class="watch main"><img src="img/1_ice.png" alt=""></div>
+  </div>
+</div></section>
+
+
+<section id="test"><div class="wrap">
+  <div class="testbox">
+    <div>
+      <h2>Help test Arcline</h2>
+      <p class="sub">Arcline is in testing before it opens to everyone on Google Play. Testers get it first, free,
+      on their own watch. It takes a minute:</p>
+      <ol class="steps">
+        <li><b>Join the tester group</b> with the Google account you use on your watch.
+          <a class="button small" href="https://groups.google.com/g/arcline-testers">Join the group</a></li>
+        <li><b>Become a tester</b> on Google Play, then install Arcline on your watch from the Play Store.
+          <a class="button small" href="https://play.google.com/apps/testing/dev.arcline.watchface">Become a tester</a></li>
+      </ol>
+      <p class="note">Please stay in the test for at least two weeks. Feedback is welcome at
+      <a href="mailto:daniel@twistedpair.se">daniel@twistedpair.se</a>. Needs a watch with Wear OS 6 or later.</p>
+    </div>
   </div>
 </div></section>
 
@@ -144,7 +168,10 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 <section id="looks"><div class="wrap">
   <h2>One face, many looks</h2>
   <p class="sub">The same face with different settings. Every look below is a choice in the watch face editor.</p>
-  <div class="gallery"><figure><div class="watch"><img src="img/1_ice.png" alt="Ice: the default look, with Pixel Watch complications" loading="lazy"></div><figcaption>Ice: the default look, with Pixel Watch complications</figcaption></figure>
+  <div class="gallery"><figure><div class="watch"><img src="img/8_minimal_ice.png" alt="Minimal: just the rim and the heart" loading="lazy"></div><figcaption>Minimal: just the rim and the heart</figcaption></figure>
+<figure><div class="watch"><img src="img/9_minimal_aurora.png" alt="Aurora: minimal, with the week below the date" loading="lazy"></div><figcaption>Aurora: minimal, with the week below the date</figcaption></figure>
+<figure><div class="watch"><img src="img/10_minimal_white.png" alt="White: minimal and bright" loading="lazy"></div><figcaption>White: minimal and bright</figcaption></figure>
+<figure><div class="watch"><img src="img/1_ice.png" alt="Ice: rim meters on, with Pixel Watch complications" loading="lazy"></div><figcaption>Ice: rim meters on, with Pixel Watch complications</figcaption></figure>
 <figure><div class="watch"><img src="img/2_sunset.png" alt="Sunset: heart on top, weather below" loading="lazy"></div><figcaption>Sunset: heart on top, weather below</figcaption></figure>
 <figure><div class="watch"><img src="img/3_ocean_clean.png" alt="Ocean: rim meters hidden" loading="lazy"></div><figcaption>Ocean: rim meters hidden</figcaption></figure>
 <figure><div class="watch"><img src="img/4_neon_12h.png" alt="Neon: 12-hour clock and the week number" loading="lazy"></div><figcaption>Neon: 12-hour clock and the week number</figcaption></figure>
