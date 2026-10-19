@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcline — a watch face for Wear OS</title>
+<meta name="description" content="Complications along the rim, a heart that beats with yours, and 35 color themes for Wear OS.">
+<meta property="og:title" content="Arcline — a watch face for Wear OS">
+<meta property="og:description" content="Complications along the rim, a heart that beats with yours, and 35 color themes for Wear OS.">
+<meta property="og:image" content="img/feature-graphic.png">
+<link rel="icon" href="img/icon.png">
+<style>
+:root {
+  --bg: #090c14; --panel: #111727; --panel2: #161d31; --line: #232c45;
+  --text: #e6ecff; --muted: #9aa6c4; --accent: #8ab4f8; --accent2: #c9b5ff; --heart: #f75d6e;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+header.top { position: sticky; top: 0; z-index: 5; backdrop-filter: blur(10px); background: rgba(9, 12, 20, .75); border-bottom: 1px solid rgba(35, 44, 69, .6); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .3px; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-size: 15px; }
+nav a:hover { color: var(--text); }
+
+.hero { position: relative; overflow: hidden; padding: 72px 0 40px; }
+.hero::before {
+  content: ""; position: absolute; inset: -20% -10% auto auto; width: 760px; height: 760px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 180, 248, .20), rgba(201, 181, 255, .08) 45%, transparent 70%);
+  pointer-events: none;
+}
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: 1.02; margin: 0 0 18px; letter-spacing: -1.5px; }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lead { font-size: 20px; color: var(--muted); max-width: 520px; margin: 0 0 28px; }
+.button { display: inline-block; padding: 13px 22px; border-radius: 999px; background: var(--accent); color: #0b1020; font-weight: 700; text-decoration: none; }
+.button.soon { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.hero .meta { margin-top: 18px; color: var(--muted); font-size: 14px; }
+
+.watches { position: relative; height: 470px; }
+.watch { position: absolute; border-radius: 50%; overflow: hidden; background: #000; box-shadow: 0 0 0 10px #1a2034, 0 0 0 12px #2a3352, 0 30px 70px rgba(0,0,0,.6); }
+.watch img { width: 100%; height: 100%; display: block; }
+.watch.main { width: 380px; height: 380px; left: 50%; top: 40px; transform: translateX(-50%); z-index: 2; }
+.watch.l { width: 230px; height: 230px; left: 0; top: 210px; opacity: .9; }
+.watch.r { width: 230px; height: 230px; right: 0; top: 0; opacity: .9; }
+
+section { padding: 64px 0; }
+section h2 { font-size: clamp(30px, 4vw, 40px); margin: 0 0 10px; letter-spacing: -.6px; }
+section .sub { color: var(--muted); margin: 0 0 34px; max-width: 680px; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feature { background: linear-gradient(180deg, var(--panel2), var(--panel)); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.feature h3 { margin: 0 0 8px; font-size: 19px; }
+.feature p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px; }
+.gallery figure { margin: 0; text-align: center; }
+.gallery .watch { position: relative; width: 100%; aspect-ratio: 1; height: auto; }
+.gallery figcaption { color: var(--muted); font-size: 14px; margin-top: 18px; }
+
+.setting { display: grid; grid-template-columns: 300px 1fr; gap: 28px; padding: 26px 0; border-top: 1px solid var(--line); }
+.setting h3 { margin: 0 0 6px; font-size: 20px; }
+.setting p { margin: 0; color: var(--muted); font-size: 15px; }
+.chip { display: inline-block; padding: 7px 14px; margin: 0 8px 8px 0; border-radius: 999px; background: var(--panel2); border: 1px solid var(--line); font-size: 14.5px; }
+ul.swatches { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 18px 12px; }
+.swatch { text-align: center; }
+.dial { width: 72px; height: 72px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.face { width: 60px; height: 60px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; }
+.face .t { font-size: 15px; font-weight: 500; letter-spacing: .3px; }
+.swatch .name { display: block; font-size: 13px; color: var(--muted); margin-top: 6px; }
+ul.hearts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 14px 18px; }
+.heart { display: flex; flex-direction: column; align-items: center; font-size: 13px; color: var(--muted); }
+.heart svg { width: 34px; height: 34px; }
+
+.langs { display: flex; flex-wrap: wrap; gap: 8px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+.fact { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.fact b { display: block; font-size: 15px; margin-bottom: 4px; }
+.fact span { color: var(--muted); font-size: 14.5px; }
+
+footer { border-top: 1px solid var(--line); padding: 34px 0 50px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+.doc { max-width: 720px; padding: 50px 20px 70px; margin: 0 auto; }
+.doc h1 { font-size: 36px; margin: 0 0 4px; }
+.doc h2 { font-size: 21px; margin: 30px 0 6px; }
+.doc p { color: #cfd7f0; }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .watches { height: 400px; }
+  .watch.main { width: 320px; height: 320px; top: 30px; }
+  .watch.l, .watch.r { width: 170px; height: 170px; }
+  .watch.l { top: 220px; }
+  .features, .facts { grid-template-columns: 1fr; }
+  .setting { grid-template-columns: 1fr; gap: 14px; }
+  nav a { margin-left: 14px; }
+}
+@media (max-width: 480px) {
+  nav a.optional { display: none; }
+  .watch.l, .watch.r { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/icon.png" alt="">Arcline</a>
+  <nav><a class="optional" href="index.html#features">Features</a><a class="optional" href="index.html#looks">Looks</a><a href="index.html#settings">Settings</a><a href="privacy.html">Privacy</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Your watch,<br><span>along the rim.</span></h1>
+    <p class="lead">Arcline puts your complications around the edge of the watch in clean curved text, so the time
+    gets the middle. With a heart that beats with yours, weather that looks ahead, and 35 color themes.</p>
+    <span class="button soon">Coming soon to Google Play</span>
+    <div class="meta">For Wear OS 6 and later · No data collected</div>
+  </div>
+  <div class="watches" aria-hidden="true">
+    <div class="watch r"><img src="img/2_sunset.png" alt=""></div>
+    <div class="watch l"><img src="img/4_neon_12h.png" alt=""></div>
+    <div class="watch main"><img src="img/1_ice.png" alt=""></div>
+  </div>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <h2>Made to be glanced at</h2>
+  <p class="sub">Everything you check a dozen times a day, arranged so it never crowds the time.</p>
+  <div class="features"><div class="feature"><h3>Complications on the rim</h3><p>Six complications follow the edge of the watch in curved text, with slim meters for things like steps and battery. Two more sit in the middle. The time gets the space it deserves.</p></div>
+<div class="feature"><h3>A heart that beats with yours</h3><p>The heart beats at your measured heart rate, a soft pulse you can glance at. Prefer it calm? Make it still.</p></div>
+<div class="feature"><h3>Weather that looks ahead</h3><p>The temperature now, and the high and low for the coming hours, not the day that&#x27;s already half gone.</p></div>
+<div class="feature"><h3>Your language, your calendar</h3><p>The date in your watch&#x27;s language, and the week number counted the way your region does it: ISO weeks in Europe, Sunday weeks in the US.</p></div>
+<div class="feature"><h3>Always-on done gently</h3><p>When the screen dims, the time turns thin and the complications stay readable, as bright or dim as you like.</p></div>
+<div class="feature"><h3>Light on the battery</h3><p>Built with Google&#x27;s Watch Face Format: no app running in the background, nothing collected, nothing sent.</p></div></div>
+</div></section>
+
+<section id="looks"><div class="wrap">
+  <h2>One face, many looks</h2>
+  <p class="sub">The same face with different settings. Every look below is a choice in the watch face editor.</p>
+  <div class="gallery"><figure><div class="watch"><img src="img/1_ice.png" alt="Ice: the default look, with Pixel Watch complications" loading="lazy"></div><figcaption>Ice: the default look, with Pixel Watch complications</figcaption></figure>
+<figure><div class="watch"><img src="img/2_sunset.png" alt="Sunset: heart on top, weather below" loading="lazy"></div><figcaption>Sunset: heart on top, weather below</figcaption></figure>
+<figure><div class="watch"><img src="img/3_ocean_clean.png" alt="Ocean: rim meters hidden" loading="lazy"></div><figcaption>Ocean: rim meters hidden</figcaption></figure>
+<figure><div class="watch"><img src="img/4_neon_12h.png" alt="Neon: 12-hour clock and the week number" loading="lazy"></div><figcaption>Neon: 12-hour clock and the week number</figcaption></figure>
+<figure><div class="watch"><img src="img/5_forest.png" alt="Forest: weather off" loading="lazy"></div><figcaption>Forest: weather off</figcaption></figure>
+<figure><div class="watch"><img src="img/6_night.png" alt="Night red: easy on the eyes in the dark" loading="lazy"></div><figcaption>Night red: easy on the eyes in the dark</figcaption></figure>
+<figure><div class="watch"><img src="img/7_amber_clean.png" alt="Amber: clean rim, heart on top" loading="lazy"></div><figcaption>Amber: clean rim, heart on top</figcaption></figure></div>
+</div></section>
+
+<section id="settings"><div class="wrap">
+  <h2>Every setting</h2>
+  <p class="sub">Long-press the face and tap the pencil to change any of these on your watch.</p>
+  <div class="setting"><div class="setting-head"><h3>Complications</h3><p>Six along the rim and two in the middle. Pick any complication your watch offers.</p></div><div class="setting-body"><span class="chip">6 on the rim</span><span class="chip">2 in the middle</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Arc icons</h3><p>The small icon at the end of each rim complication.</p></div><div class="setting-body"><span class="chip">Shown</span><span class="chip">Hidden</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Clock</h3><p>Follow your watch&#x27;s setting, or choose. In 12-hour mode, AM or PM sits above the minutes.</p></div><div class="setting-body"><span class="chip">Automatic</span><span class="chip">24h</span><span class="chip">12h</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Dimmed brightness</h3><p>How bright the complications, heart and weather are when the screen dims.</p></div><div class="setting-body"><span class="chip">High</span><span class="chip">Medium</span><span class="chip">Low</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Heart &amp; weather</h3><p>Put each above or below the time, or turn it off. The two middle complications move closer together when nothing sits between them.</p></div><div class="setting-body"><span class="chip">Heart: top / bottom / off</span><span class="chip">Weather: top / bottom / off</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Heart color</h3><p>Nine colors for the heart.</p></div><div class="setting-body"><ul class="hearts"><li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#F75D6E"/></svg><span>Red</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#FF7EB6"/></svg><span>Pink</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#FF9640"/></svg><span>Orange</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#FFD24A"/></svg><span>Gold</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#4ADE80"/></svg><span>Green</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#2DD4BF"/></svg><span>Teal</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#60A5FA"/></svg><span>Blue</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#B07CFF"/></svg><span>Purple</span></li>
+<li class="heart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.6 2.9 5 6.4 5c2 0 3.6 1.1 4.6 2.6C12 6.1 13.6 5 15.6 5c3.5 0 5.5 3.6 4 6.8C19.5 16.4 12 21 12 21z" fill="#F4F4F5"/></svg><span>White</span></li></ul></div></div>
+<div class="setting"><div class="setting-head"><h3>Heartbeat</h3><p>Beating at your heart rate, or still.</p></div><div class="setting-body"><span class="chip">Beating</span><span class="chip">Still</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Rim arcs</h3><p>Slim meters along the rim for values like steps and battery, or just the values.</p></div><div class="setting-body"><span class="chip">Shown</span><span class="chip">Hidden</span></div></div>
+<div class="setting"><div class="setting-head"><h3>Theme</h3><p>35 themes, each coloring the time, the rim, the meters and the middle in its own shades.</p></div><div class="setting-body"><ul class="swatches"><li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #8AB4F8 0 18%, #26324A 18% 33%, #A8C7FA 33% 52%, #26324A 52% 66%, #9EE7FF 66% 84%, #26324A 84%)"><span class="face"><span class="t" style="color:#DCE6FF">10:08</span></span></span><span class="name">Ice</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #A1A1AA 0 18%, #2A2A2E 18% 33%, #D4D4D8 33% 52%, #2A2A2E 52% 66%, #E4E4E7 66% 84%, #2A2A2E 84%)"><span class="face"><span class="t" style="color:#FFFFFF">10:08</span></span></span><span class="name">White</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F59E0B 0 18%, #3A2A10 18% 33%, #FFDDA8 33% 52%, #3A2A10 52% 66%, #FFAB7A 66% 84%, #3A2A10 84%)"><span class="face"><span class="t" style="color:#FFC261">10:08</span></span></span><span class="name">Amber</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #2DD4BF 0 18%, #123B33 18% 33%, #C2F7E6 33% 52%, #123B33 52% 66%, #A5E8FF 66% 84%, #123B33 84%)"><span class="face"><span class="t" style="color:#74F2C8">10:08</span></span></span><span class="name">Mint</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F472B6 0 18%, #3D1A2B 18% 33%, #FFC4DA 33% 52%, #3D1A2B 52% 66%, #C9B5FF 66% 84%, #3D1A2B 84%)"><span class="face"><span class="t" style="color:#FF8DB8">10:08</span></span></span><span class="name">Rose</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #E05A47 0 18%, #3A1A16 18% 33%, #E8806F 33% 52%, #3A1A16 52% 66%, #FFB4A3 66% 84%, #3A1A16 84%)"><span class="face"><span class="t" style="color:#FF9C8A">10:08</span></span></span><span class="name">Night red</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #FF8F5A 0 18%, #3A2020 18% 33%, #FFADAD 33% 52%, #3A2020 52% 66%, #FDFFB6 66% 84%, #3A2020 84%)"><span class="face"><span class="t" style="color:#FFD6A5">10:08</span></span></span><span class="name">Sunset</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #0EA5E9 0 18%, #0C2A3D 18% 33%, #7DD3FC 33% 52%, #0C2A3D 52% 66%, #5EEAD4 66% 84%, #0C2A3D 84%)"><span class="face"><span class="t" style="color:#E0F2FE">10:08</span></span></span><span class="name">Ocean</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #4ADE80 0 18%, #14301E 18% 33%, #A7F3D0 33% 52%, #14301E 52% 66%, #FDE68A 66% 84%, #14301E 84%)"><span class="face"><span class="t" style="color:#D9F99D">10:08</span></span></span><span class="name">Forest</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #A3E635 0 18%, #2A1A3A 18% 33%, #67E8F9 33% 52%, #2A1A3A 52% 66%, #FDE047 66% 84%, #2A1A3A 84%)"><span class="face"><span class="t" style="color:#F0ABFC">10:08</span></span></span><span class="name">Neon</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F97316 0 18%, #3A2A10 18% 33%, #FCA5A5 33% 52%, #3A2A10 52% 66%, #93C5FD 66% 84%, #3A2A10 84%)"><span class="face"><span class="t" style="color:#FDE68A">10:08</span></span></span><span class="name">Retro</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #34D399 0 18%, #1E1B3A 18% 33%, #A78BFA 33% 52%, #1E1B3A 52% 66%, #F9A8D4 66% 84%, #1E1B3A 84%)"><span class="face"><span class="t" style="color:#C4F1F9">10:08</span></span></span><span class="name">Aurora</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F43434 0 18%, #4F1717 18% 33%, #F3C5A5 33% 52%, #4F1717 52% 66%, #F877C2 66% 84%, #4F1717 84%)"><span class="face"><span class="t" style="color:#F87777">10:08</span></span></span><span class="name">Red</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F46434 0 18%, #4F2517 18% 33%, #F3D9A5 33% 52%, #4F2517 52% 66%, #F877A2 66% 84%, #4F2517 84%)"><span class="face"><span class="t" style="color:#F89777">10:08</span></span></span><span class="name">Coral</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F49434 0 18%, #4F3317 18% 33%, #F3EDA5 33% 52%, #4F3317 52% 66%, #F87782 66% 84%, #4F3317 84%)"><span class="face"><span class="t" style="color:#F8B877">10:08</span></span></span><span class="name">Orange</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F4C434 0 18%, #4F4117 18% 33%, #E6F3A5 33% 52%, #4F4117 52% 66%, #F88D77 66% 84%, #4F4117 84%)"><span class="face"><span class="t" style="color:#F8D877">10:08</span></span></span><span class="name">Gold</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F4F434 0 18%, #4F4F17 18% 33%, #D3F3A5 33% 52%, #4F4F17 52% 66%, #F8AD77 66% 84%, #4F4F17 84%)"><span class="face"><span class="t" style="color:#F8F877">10:08</span></span></span><span class="name">Lemon</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #B4F434 0 18%, #3C4F17 18% 33%, #B8F3A5 33% 52%, #3C4F17 52% 66%, #F8D877 66% 84%, #3C4F17 84%)"><span class="face"><span class="t" style="color:#CDF877">10:08</span></span></span><span class="name">Lime</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #54F434 0 18%, #214F17 18% 33%, #A5F3B8 33% 52%, #214F17 52% 66%, #D8F877 66% 84%, #214F17 84%)"><span class="face"><span class="t" style="color:#8DF877">10:08</span></span></span><span class="name">Green</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #34F474 0 18%, #174F2A 18% 33%, #A5F3E0 33% 52%, #174F2A 52% 66%, #97F877 66% 84%, #174F2A 84%)"><span class="face"><span class="t" style="color:#77F8A2">10:08</span></span></span><span class="name">Emerald</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #34F4D4 0 18%, #174F45 18% 33%, #A5E0F3 33% 52%, #174F45 52% 66%, #77F897 66% 84%, #174F45 84%)"><span class="face"><span class="t" style="color:#77F8E2">10:08</span></span></span><span class="name">Teal</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #34D4F4 0 18%, #17454F 18% 33%, #A5C5F3 33% 52%, #17454F 52% 66%, #77F8C2 66% 84%, #17454F 84%)"><span class="face"><span class="t" style="color:#77E2F8">10:08</span></span></span><span class="name">Cyan</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #34A4F4 0 18%, #17384F 18% 33%, #A5B2F3 33% 52%, #17384F 52% 66%, #77F8E2 66% 84%, #17384F 84%)"><span class="face"><span class="t" style="color:#77C2F8">10:08</span></span></span><span class="name">Sky</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #3474F4 0 18%, #172A4F 18% 33%, #ABA5F3 33% 52%, #172A4F 52% 66%, #77EDF8 66% 84%, #172A4F 84%)"><span class="face"><span class="t" style="color:#77A2F8">10:08</span></span></span><span class="name">Blue</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #3434F4 0 18%, #17174F 18% 33%, #C5A5F3 33% 52%, #17174F 52% 66%, #77C2F8 66% 84%, #17174F 84%)"><span class="face"><span class="t" style="color:#7777F8">10:08</span></span></span><span class="name">Indigo</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #7434F4 0 18%, #2A174F 18% 33%, #E0A5F3 33% 52%, #2A174F 52% 66%, #7797F8 66% 84%, #2A174F 84%)"><span class="face"><span class="t" style="color:#A277F8">10:08</span></span></span><span class="name">Violet</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #B434F4 0 18%, #3C174F 18% 33%, #F3A5ED 33% 52%, #3C174F 52% 66%, #8277F8 66% 84%, #3C174F 84%)"><span class="face"><span class="t" style="color:#CD77F8">10:08</span></span></span><span class="name">Purple</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F434F4 0 18%, #4F174F 18% 33%, #F3A5D3 33% 52%, #4F174F 52% 66%, #AD77F8 66% 84%, #4F174F 84%)"><span class="face"><span class="t" style="color:#F877F8">10:08</span></span></span><span class="name">Magenta</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F434B4 0 18%, #4F173C 18% 33%, #F3A5B8 33% 52%, #4F173C 52% 66%, #D877F8 66% 84%, #4F173C 84%)"><span class="face"><span class="t" style="color:#F877CD">10:08</span></span></span><span class="name">Pink</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #F43474 0 18%, #4F172A 18% 33%, #F3ABA5 33% 52%, #4F172A 52% 66%, #F877ED 66% 84%, #4F172A 84%)"><span class="face"><span class="t" style="color:#F877A2">10:08</span></span></span><span class="name">Raspberry</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #C49C64 0 18%, #413525 18% 33%, #E0E0B8 33% 52%, #413525 52% 66%, #D89797 66% 84%, #413525 84%)"><span class="face"><span class="t" style="color:#D8BD97">10:08</span></span></span><span class="name">Sand</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #6E8EB9 0 18%, #28313E 18% 33%, #BDBDDB 33% 52%, #28313E 52% 66%, #9FD1D1 66% 84%, #28313E 84%)"><span class="face"><span class="t" style="color:#9FB3D1">10:08</span></span></span><span class="name">Slate</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #72B672 0 18%, #293D29 18% 33%, #BEDACA 33% 52%, #293D29 52% 66%, #BBCEA1 66% 84%, #293D29 84%)"><span class="face"><span class="t" style="color:#A1CEA1">10:08</span></span></span><span class="name">Sage</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #B474B4 0 18%, #3C2A3C 18% 33%, #D9BFCE 33% 52%, #3C2A3C 52% 66%, #B4A2CD 66% 84%, #3C2A3C 84%)"><span class="face"><span class="t" style="color:#CDA2CD">10:08</span></span></span><span class="name">Mauve</span></li>
+<li class="swatch"><span class="dial" style="background:conic-gradient(from -60deg, #71717A 0 18%, #27272A 18% 33%, #A1A1AA 33% 52%, #27272A 52% 66%, #E4E4E7 66% 84%, #27272A 84%)"><span class="face"><span class="t" style="color:#D4D4D8">10:08</span></span></span><span class="name">Graphite</span></li></ul></div></div>
+<div class="setting"><div class="setting-head"><h3>Week</h3><p>The week number beside the date, on its own line below it (the date gets bigger), or hidden.</p></div><div class="setting-body"><span class="chip">Beside the date</span><span class="chip">Below the date</span><span class="chip">Hidden</span></div></div>
+  <div class="setting"><div class="setting-head"><h3>Languages</h3><p>The weekday and month come from your watch in
+  its own language. The week word is translated too, and the date line sizes itself to fit the words.</p></div>
+  <div class="setting-body"><div class="langs"><span class="chip">English</span><span class="chip">Svenska</span><span class="chip">Deutsch</span><span class="chip">Norsk bokmål</span><span class="chip">Nynorsk</span><span class="chip">Dansk</span><span class="chip">Suomi</span><span class="chip">Français</span><span class="chip">Español</span><span class="chip">Italiano</span><span class="chip">Nederlands</span></div></div></div>
+  <div class="facts">
+    <div class="fact"><b>Week numbers that match your calendar</b><span>ISO weeks (Monday first) in most of the world, Sunday weeks where that's the custom, like the US.</span></div>
+    <div class="fact"><b>Dates the local way</b><span>"18 October" in most places, "October 18" in the US.</span></div>
+    <div class="fact"><b>Pixel Watch complications by default</b><span>Steps, active minutes, calories, alarm, sunset, UV and distance, with standard Wear OS fallbacks on other watches.</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>Arcline — a watch face for Wear OS</span>
+  <span><a href="privacy.html">Privacy policy</a> · <a href="mailto:daniel@twistedpair.se">daniel@twistedpair.se</a></span>
+</div></footer>
+</body>
+</html>

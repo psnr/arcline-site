@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcline — Privacy policy</title>
+<meta name="description" content="Arcline collects no data: everything stays on your watch.">
+<meta property="og:title" content="Arcline — Privacy policy">
+<meta property="og:description" content="Arcline collects no data: everything stays on your watch.">
+<meta property="og:image" content="img/feature-graphic.png">
+<link rel="icon" href="img/icon.png">
+<style>
+:root {
+  --bg: #090c14; --panel: #111727; --panel2: #161d31; --line: #232c45;
+  --text: #e6ecff; --muted: #9aa6c4; --accent: #8ab4f8; --accent2: #c9b5ff; --heart: #f75d6e;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+header.top { position: sticky; top: 0; z-index: 5; backdrop-filter: blur(10px); background: rgba(9, 12, 20, .75); border-bottom: 1px solid rgba(35, 44, 69, .6); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .3px; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-size: 15px; }
+nav a:hover { color: var(--text); }
+
+.hero { position: relative; overflow: hidden; padding: 72px 0 40px; }
+.hero::before {
+  content: ""; position: absolute; inset: -20% -10% auto auto; width: 760px; height: 760px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 180, 248, .20), rgba(201, 181, 255, .08) 45%, transparent 70%);
+  pointer-events: none;
+}
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: 1.02; margin: 0 0 18px; letter-spacing: -1.5px; }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lead { font-size: 20px; color: var(--muted); max-width: 520px; margin: 0 0 28px; }
+.button { display: inline-block; padding: 13px 22px; border-radius: 999px; background: var(--accent); color: #0b1020; font-weight: 700; text-decoration: none; }
+.button.soon { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.hero .meta { margin-top: 18px; color: var(--muted); font-size: 14px; }
+
+.watches { position: relative; height: 470px; }
+.watch { position: absolute; border-radius: 50%; overflow: hidden; background: #000; box-shadow: 0 0 0 10px #1a2034, 0 0 0 12px #2a3352, 0 30px 70px rgba(0,0,0,.6); }
+.watch img { width: 100%; height: 100%; display: block; }
+.watch.main { width: 380px; height: 380px; left: 50%; top: 40px; transform: translateX(-50%); z-index: 2; }
+.watch.l { width: 230px; height: 230px; left: 0; top: 210px; opacity: .9; }
+.watch.r { width: 230px; height: 230px; right: 0; top: 0; opacity: .9; }
+
+section { padding: 64px 0; }
+section h2 { font-size: clamp(30px, 4vw, 40px); margin: 0 0 10px; letter-spacing: -.6px; }
+section .sub { color: var(--muted); margin: 0 0 34px; max-width: 680px; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feature { background: linear-gradient(180deg, var(--panel2), var(--panel)); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.feature h3 { margin: 0 0 8px; font-size: 19px; }
+.feature p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px; }
+.gallery figure { margin: 0; text-align: center; }
+.gallery .watch { position: relative; width: 100%; aspect-ratio: 1; height: auto; }
+.gallery figcaption { color: var(--muted); font-size: 14px; margin-top: 18px; }
+
+.setting { display: grid; grid-template-columns: 300px 1fr; gap: 28px; padding: 26px 0; border-top: 1px solid var(--line); }
+.setting h3 { margin: 0 0 6px; font-size: 20px; }
+.setting p { margin: 0; color: var(--muted); font-size: 15px; }
+.chip { display: inline-block; padding: 7px 14px; margin: 0 8px 8px 0; border-radius: 999px; background: var(--panel2); border: 1px solid var(--line); font-size: 14.5px; }
+ul.swatches { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 18px 12px; }
+.swatch { text-align: center; }
+.dial { width: 72px; height: 72px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+.face { width: 60px; height: 60px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; }
+.face .t { font-size: 15px; font-weight: 500; letter-spacing: .3px; }
+.swatch .name { display: block; font-size: 13px; color: var(--muted); margin-top: 6px; }
+ul.hearts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 14px 18px; }
+.heart { display: flex; flex-direction: column; align-items: center; font-size: 13px; color: var(--muted); }
+.heart svg { width: 34px; height: 34px; }
+
+.langs { display: flex; flex-wrap: wrap; gap: 8px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
+.fact { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.fact b { display: block; font-size: 15px; margin-bottom: 4px; }
+.fact span { color: var(--muted); font-size: 14.5px; }
+
+footer { border-top: 1px solid var(--line); padding: 34px 0 50px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+.doc { max-width: 720px; padding: 50px 20px 70px; margin: 0 auto; }
+.doc h1 { font-size: 36px; margin: 0 0 4px; }
+.doc h2 { font-size: 21px; margin: 30px 0 6px; }
+.doc p { color: #cfd7f0; }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .watches { height: 400px; }
+  .watch.main { width: 320px; height: 320px; top: 30px; }
+  .watch.l, .watch.r { width: 170px; height: 170px; }
+  .watch.l { top: 220px; }
+  .features, .facts { grid-template-columns: 1fr; }
+  .setting { grid-template-columns: 1fr; gap: 14px; }
+  nav a { margin-left: 14px; }
+}
+@media (max-width: 480px) {
+  nav a.optional { display: none; }
+  .watch.l, .watch.r { display: none; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/icon.png" alt="">Arcline</a>
+  <nav><a class="optional" href="index.html#features">Features</a><a class="optional" href="index.html#looks">Looks</a><a href="index.html#settings">Settings</a><a href="privacy.html">Privacy</a></nav>
+</div></header>
+
+<main class="doc">
+  <h1>Privacy policy</h1>
+  <p style="color:var(--muted)">Arcline · last updated 18 October 2026</p>
+  <p>Arcline is a watch face for Wear OS. This policy explains what it does with your data: nothing leaves your watch.</p>
+  <h2>What Arcline shows</h2>
+  <p>Arcline displays information your watch already has: the time and date, your heart rate, the weather, and the
+  complications you choose (such as steps or battery). This information is provided by Wear OS and the apps on your
+  watch, and is only drawn on the screen.</p>
+  <h2>What Arcline collects</h2>
+  <p>Nothing. Arcline contains no code of its own (it is built with Google's Watch Face Format), makes no network
+  connections, and does not collect, store, sell or share any personal data. It has no ads, no analytics and no accounts.</p>
+  <h2>Your settings</h2>
+  <p>Your choices in the watch face editor (theme, complications and so on) are stored by Wear OS on your watch.</p>
+  <h2>Third parties</h2>
+  <p>Complications you choose come from other apps on your watch, which have their own privacy policies.</p>
+  <h2>Contact</h2>
+  <p>Questions about this policy: <a href="mailto:daniel@twistedpair.se">daniel@twistedpair.se</a></p>
+</main>
+
+<footer><div class="wrap">
+  <span>Arcline — a watch face for Wear OS</span>
+  <span><a href="privacy.html">Privacy policy</a> · <a href="mailto:daniel@twistedpair.se">daniel@twistedpair.se</a></span>
+</div></footer>
+</body>
+</html>
